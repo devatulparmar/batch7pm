@@ -1,4 +1,5 @@
 import 'package:batch7pm/%20RadioButtonExample/radio_button_example.dart';
+import 'package:batch7pm/stack_example/stack_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,10 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyRadioScreen(),
+      home: const LoginScreenWithStack(),
     );
   }
 }

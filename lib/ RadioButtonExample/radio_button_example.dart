@@ -8,8 +8,10 @@ class MyRadioScreen extends StatefulWidget {
 }
 
 class _MyRadioScreenState extends State<MyRadioScreen> {
-  int groupValue = 3;
+  int groupValue = 0;
   String dropdownValue = '';
+  bool checkBoxValue1 = false;
+  bool checkBoxValue2 = false;
   List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
   @override
@@ -48,12 +50,11 @@ class _MyRadioScreenState extends State<MyRadioScreen> {
               const Text('Female'),
             ],
           ),
-
           Row(
             children: [
               Expanded(
                 flex: 1,
-                child: DropdownMenu<String>(
+                child: DropdownMenu(
                   // initialSelection: list.first,
                   hintText: 'Select',
                   onSelected: (String? value) {
@@ -69,6 +70,87 @@ class _MyRadioScreenState extends State<MyRadioScreen> {
               ),
             ],
           ),
+          Row(
+            children: [
+              Checkbox(
+                value: checkBoxValue1,
+                onChanged: (bool? value) {
+                  setState(() {
+                    checkBoxValue1 = value!;
+                  });
+                },
+              ),
+              const Text('Vadodara'),
+              Checkbox(
+                value: checkBoxValue2,
+                onChanged: (bool? value) {
+                  setState(() {
+                    checkBoxValue2 = value!;
+                  });
+                },
+              ),
+              const Text('Baroda'),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: CheckboxListTile(
+                  value: checkBoxValue2,
+                  title: const Text('Vadodara'),
+                  contentPadding: EdgeInsets.zero,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      checkBoxValue2 = value!;
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: CheckboxListTile(
+                  value: checkBoxValue2,
+                  title: const Text('Vadodara'),
+                  contentPadding: EdgeInsets.zero,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      checkBoxValue2 = value!;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: RadioListTile(
+                  value: 0,
+                  groupValue: groupValue,
+                  title: const Text('Male'),
+                  onChanged: (dynamic value) {
+                    setState(() {
+                      groupValue = value;
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: RadioListTile(
+                  value: 1,
+                  groupValue: groupValue,
+                  title: const Text('Female'),
+                  onChanged: (dynamic value) {
+                    setState(() {
+                      groupValue = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          
         ],
       ),
     );
