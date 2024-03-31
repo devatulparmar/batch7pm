@@ -40,7 +40,7 @@ class _LoginScreenWithStackState extends State<LoginScreenWithStack> {
           Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            color: Colors.blue.shade50,
+            color: Colors.blue,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
