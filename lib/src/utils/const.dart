@@ -1,0 +1,2 @@
+
+const successStatusCode = 200;

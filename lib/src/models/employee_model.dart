@@ -33,12 +33,13 @@ class EmployeeData {
   int? employeeSalary;
   int? employeeAge;
   String? profileImage;
+  String? name;
 
   EmployeeData(
       {this.id,
       this.employeeName,
       this.employeeSalary,
-      this.employeeAge,
+      this.employeeAge,   this.name,
       this.profileImage});
 
   EmployeeData.fromJson(Map<String, dynamic> json) {
@@ -47,6 +48,7 @@ class EmployeeData {
     employeeSalary = json['employee_salary'];
     employeeAge = json['employee_age'];
     profileImage = json['profile_image'];
+    name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -56,6 +58,7 @@ class EmployeeData {
     data['employee_salary'] = employeeSalary;
     data['employee_age'] = employeeAge;
     data['profile_image'] = profileImage;
+    data['name'] = name;
     return data;
   }
 }
