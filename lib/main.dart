@@ -1,5 +1,6 @@
 
 import 'package:batch7pm/src/view/api_call/employees.dart';
+import 'package:batch7pm/src/view/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const EmployeesScreen(),
+      home: const LoginScreen(),
     );
   }
 }
