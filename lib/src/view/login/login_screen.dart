@@ -24,17 +24,18 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLoading = true;
     });
-    var response = await http.post(
-      Uri.parse(loginURL),
-      // body: {
-      //   "email": "eve.holt@reqres.in",
-      //   "password": "cityslicka"
-      // },
-
-      body: {
-        "email": _controller.text,
-        "password": _passController.text,
-      },
+    var response = await http.post(Uri.parse(loginURL),
+        // body: {
+        //   "email": "eve.holt@reqres.in",
+        //   "password": "cityslicka"
+        // },
+        body: {
+          "email": _controller.text,
+          "password": _passController.text,
+        },
+        headers: {
+          "Authorization": "Basic bG9sOnNlY3VyZQ=="
+        },
     );
     try {
       if (response.statusCode == successStatusCode) {
@@ -90,10 +91,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextFormField(
                           controller: _controller,
-                          validator: (String? value){
+                          validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter the email';
-                            } else if(!AppGlobalFunctions().isEmail(_controller.text)){
+                            } else if (!AppGlobalFunctions()
+                                .isEmail(_controller.text)) {
                               return 'Please enter valid email';
                             }
                             return null;
@@ -113,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: isObscureText,
                           maxLength: 8,
                           keyboardType: TextInputType.text,
-                          validator: (String? value){
+                          validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter the password';
                             }
@@ -137,7 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               icon: Icon(
                                 Icons.remove_red_eye,
-                                color: isObscureText ? Colors.grey : Colors.blue,
+                                color:
+                                    isObscureText ? Colors.grey : Colors.blue,
                               ),
                             ),
                           ),
@@ -155,6 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (_formKey.currentState!.validate()) {
                     _loginAPICall();
                   }
+
                   /// custom function
                   // if (_isValidate()) {
                   //   _loginAPICall();
