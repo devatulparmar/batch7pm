@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:batch7pm/src/utils/const.dart';
 import 'package:batch7pm/src/utils/global_functions.dart';
@@ -56,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isValidate() {
+
     if (_controller.text.isEmpty) {
       return false;
     } else if (_passController.text.isEmpty) {
