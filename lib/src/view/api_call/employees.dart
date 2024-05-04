@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:batch7pm/src/models/employee_model.dart';
 import 'package:batch7pm/src/utils/const.dart';
 import 'package:batch7pm/src/utils/urls.dart';
+import 'package:batch7pm/src/view/widgets/item_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -65,58 +66,7 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    color: Colors.blue.shade300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const CircleAvatar(
-                            radius: 50,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Employee Name : ${employeeList[index].employeeName}",
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Employee Salary : ${employeeList[index].employeeSalary}",
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Employee Age : ${employeeList[index].employeeAge}",
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Employee Image : ${employeeList[index].profileImage}",
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  child: ItemCard(employee: employeeList[index]),
                 );
               }),
     );

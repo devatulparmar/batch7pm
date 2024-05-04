@@ -1,8 +1,7 @@
-
+import 'package:batch7pm/src/repository/api_repository.dart';
 import 'package:batch7pm/src/utils/const.dart';
 import 'package:batch7pm/src/utils/global_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../../utils/urls.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,25 +22,25 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLoading = true;
     });
-    var response = await http.post(Uri.parse(loginURL),
-        // body: {
-        //   "email": "eve.holt@reqres.in",
-        //   "password": "cityslicka"
-        // },
-        body: {
-          "email": _controller.text,
-          "password": _passController.text,
-        },
-        headers: {
-          "Authorization": "Basic bG9sOnNlY3VyZQ=="
-        },
+    var response = await ApiRepository().defaultPostCall(
+      loginURL,
+      // body: {
+      //   "email": "eve.holt@reqres.in",
+      //   "password": "cityslicka"
+      // },
+      {},
+      {
+        "email": _controller.text,
+        "password": _passController.text,
+      },
     );
     try {
       if (response.statusCode == successStatusCode) {
         debugPrint('Success!');
         _controller.text = '';
         _passController.text = '';
-      } else if (response.statusCode == 500) {
+      }
+      else if (response.statusCode == 500) {
         debugPrint('API wale ki galti');
       } else {
         debugPrint('Error ${response.statusCode}');
@@ -55,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isValidate() {
-
     if (_controller.text.isEmpty) {
       return false;
     } else if (_passController.text.isEmpty) {
@@ -157,6 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   FocusManager.instance.primaryFocus?.unfocus();
                   if (_formKey.currentState!.validate()) {
                     _loginAPICall();
+                    print('fdisfbdsjf');
                   }
 
                   /// custom function
@@ -166,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: const Text('Login'),
               ),
-            )
+            ),
           ],
         ),
       ),
