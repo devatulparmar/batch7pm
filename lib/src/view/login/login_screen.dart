@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:batch7pm/src/repository/api_repository.dart';
 import 'package:batch7pm/src/utils/const.dart';
 import 'package:batch7pm/src/utils/global_functions.dart';
+import 'package:batch7pm/src/view/landing_page/landing_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/urls.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  late SharedPreferences _preferences;
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   bool isObscureText = true;
@@ -22,25 +28,34 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLoading = true;
     });
-    var response = await ApiRepository().defaultPostCall(
+    Response response = await ApiRepository().defaultPostCall(
       loginURL,
-      // body: {
-      //   "email": "eve.holt@reqres.in",
-      //   "password": "cityslicka"
-      // },
-      {},
       {
-        "email": _controller.text,
-        "password": _passController.text,
+        'contentType': 'Application/json',
       },
+      {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+      // {
+      //   "email": _controller.text,
+      //   "password": _passController.text,
+      // },
     );
     try {
       if (response.statusCode == successStatusCode) {
         debugPrint('Success!');
+        var data = jsonDecode(response.body);
+        debugPrint(data['token'].toString());
+        _preferences = await SharedPreferences.getInstance();
+        _preferences.setString(prefLoginToken, data['token'].toString());
+        _preferences.setBool(prefIsLogin, true);
         _controller.text = '';
         _passController.text = '';
-      }
-      else if (response.statusCode == 500) {
+        Navigator.pushReplacement(
+          navigationGKey.currentContext!,
+          MaterialPageRoute(
+            builder: (_) => const LandingScreen(),
+          ),
+        );
+      } else if (response.statusCode == 500) {
         debugPrint('API wale ki galti');
       } else {
         debugPrint('Error ${response.statusCode}');
@@ -153,10 +168,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  if (_formKey.currentState!.validate()) {
-                    _loginAPICall();
-                    print('fdisfbdsjf');
-                  }
+                  // if (_formKey.currentState!.validate()) {
+                  //    _loginAPICall();
+                  // }
+                  _loginAPICall();
 
                   /// custom function
                   // if (_isValidate()) {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
   final EmployeeData employee;
+
   const ItemCard({Key? key, required this.employee}) : super(key: key);
 
   @override
@@ -63,4 +64,3 @@ class ItemCard extends StatelessWidget {
     );
   }
 }
-
