@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       {
         'contentType': 'Application/json',
       },
-      {"email": "eve.holt@reqres.in", "password": "cityslicka"},
+      {"email": "eve.holt@reqres.n", "password": "cityslicka"},
       // {
       //   "email": _controller.text,
       //   "password": _passController.text,
@@ -49,6 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
         _preferences.setBool(prefIsLogin, true);
         _controller.text = '';
         _passController.text = '';
+        ScaffoldMessenger.of(navigationGKey.currentContext!).showSnackBar(
+          const SnackBar(
+            content: Text('Login Success'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
+          ),
+        );
         Navigator.pushReplacement(
           navigationGKey.currentContext!,
           MaterialPageRoute(
@@ -58,6 +65,19 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (response.statusCode == 500) {
         debugPrint('API wale ki galti');
       } else {
+        ScaffoldMessenger.of(navigationGKey.currentContext!).showSnackBar(
+          SnackBar(
+            content: const Text('Something went wrong!'),
+            action: SnackBarAction(onPressed: () {}, label: 'cancel'),
+            showCloseIcon: true,
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
         debugPrint('Error ${response.statusCode}');
       }
     } catch (e) {
@@ -81,6 +101,23 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      drawer: const Drawer(),
+      endDrawer: Drawer(
+        backgroundColor: Colors.blue,
+        child: ListView(
+          children: const [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Menu'),
+            ),
+            Text('Order'),
+            Text('Profile'),
+            Text('Service'),
+            Text('Setting'),
+            Text('Logout'),
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
